@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+	<head>
+		<meta charset="UTF-8" th:remove="tag">
+	</head>
+	<body>
+		<div layout:fragment="content">
+			<form th:action="@{/ContactForm/complete}" th:object="${form}" method="post">
+				<h2 class="page-header">確認画面</h2>
+				<table>
+					<tr>
+						<th>名前</th>
+						<td th:text="*{name}"></td>
+					</tr>
+					<tr>
+						<th>年齢</th>
+						<td th:text="*{age}"></td>
+					</tr>
+					<tr>
+						<th>都道府県</th>
+						<td th:text="*{prefecture}"></td>
+					</tr>
+					<tr>
+						<th>市区町村</th>
+						<td th:text="*{address1}"></td>
+					</tr>
+					<tr>
+						<th>番地</th>
+						<td th:text="*{address2}"></td>
+					</tr>
+					<tr>
+						<th>コメント</th>
+						<td th:text="*{comment}"></textarea></td>
+					</tr>
+				</table>
+				<div>
+					<a th:href="@{/ContactForm}" class="btn btn-secondary btn-sm">戻る</a>
+					<input class="btn btn-secondary btn-sm" type="submit" value="登録">
+				</div>
+			</form>
+		</div>
+	</body>
+</html>
