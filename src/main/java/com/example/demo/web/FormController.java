@@ -29,9 +29,9 @@ public class FormController {
 	public String register(@Valid @ModelAttribute Form form, BindingResult result, Model model, HttpSession session) {
 		try {
 			if (result.hasErrors()) {
-				return "ContactForm/input";
+				return "redirect:/ContactForm/input";
 			}
-			// セッションにセット
+			// セッションにフォーム情報をセット
 			session.setAttribute("form", form);
 			
 		} catch(Exception e) {
@@ -42,7 +42,6 @@ public class FormController {
 	
 	/*
 	 * 入力画面に戻る
-	 * ※確認画面表示とほぼ処理の中身同じだからまとめたい
 	 */
 	@GetMapping(path = {"", "/"})
 	public String back(Form form, HttpSession session, Model model) {
@@ -58,15 +57,6 @@ public class FormController {
 	}
 	
 	/*
-	 * 完了画面表示
-	 */
-	@GetMapping(value = "/complete")
-	public String complete(Form form, Model model) {
-		model.addAttribute("form", form);
-		return "ContactForm/complete";
-	}
-	
-	/*
 	 * DB登録
 	 */
 	@PostMapping(value = "/complete")
@@ -79,7 +69,8 @@ public class FormController {
 			session.invalidate();
 			
 		} catch (Exception e) {
+			return "redirect:/ContactForm/confirm";
 		}
-		return "redirect:/ContactForm/complete";
+		return "ContactForm/complete";
 	}
 }
