@@ -20,31 +20,12 @@ import jakarta.validation.Valid;
 public class FormController {
 	@Autowired
 	FormService formService;
-
 	
 	/*
-	 * 確認画面へ遷移
-	 */
-	@PostMapping(value = "/confirm")
-	public String register(@Valid @ModelAttribute Form form, BindingResult result, Model model, HttpSession session) {
-		try {
-			if (result.hasErrors()) {
-				return "redirect:/ContactForm/input";
-			}
-			// セッションにフォーム情報をセット
-			session.setAttribute("form", form);
-			
-		} catch(Exception e) {
-			return "redirect:/ContactForm/input";
-		}
-		return "ContactForm/confirm";
-	}
-	
-	/*
-	 * 入力画面に戻る
+	 * 入力画面
 	 */
 	@GetMapping(path = {"", "/"})
-	public String back(Form form, HttpSession session, Model model) {
+	public String input(Form form, HttpSession session, Model model) {
 		// セッションからフォーム情報を取得する
         Form sessionForm = (Form) session.getAttribute("form");
         if (sessionForm == null) {
@@ -57,17 +38,36 @@ public class FormController {
 	}
 	
 	/*
+	 * 確認画面へ遷移
+	 */
+	@PostMapping(value = "/confirm")
+	public String confirm(@Valid @ModelAttribute Form form, BindingResult result, Model model, HttpSession session) {
+		try {
+			if (result.hasErrors()) {
+				return "ContactForm/input";
+			}
+			// セッションにフォーム情報をセット
+			session.setAttribute("form", form);
+			
+		} catch(Exception e) {
+			return "redirect:/ContactForm/input";
+		}
+		return "ContactForm/confirm";
+	}
+	
+	/*
 	 * DB登録
 	 */
-	@PostMapping(value = "/complete")
-	public String register(HttpSession session) {
+	@RequestMapping(value = "/complete")
+	public String complete(HttpSession session) {
 		try {
 			// 新規登録
 			Form form = (Form) session.getAttribute("form");
-			formService.save(form);
-			// セッションクリア
-			session.invalidate();
-			
+			if (form != null) {
+				formService.save(form);
+				// セッションクリア
+				session.invalidate();
+			}
 		} catch (Exception e) {
 			return "redirect:/ContactForm/confirm";
 		}

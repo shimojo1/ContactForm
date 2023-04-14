@@ -6,7 +6,7 @@
 	<body>
 		<div layout:fragment="content">
 			<form th:action="@{/ContactForm/complete}" th:object="${form}" method="post">
-				<h2 class="page-header">確認画面</h2>
+				<h2>確認画面</h2>
 				<table>
 					<tr>
 						<th>名前</th>
@@ -30,12 +30,12 @@
 					</tr>
 					<tr>
 						<th>コメント</th>
-						<td th:text="*{comment}"></textarea></td>
+						<td th:text="*{comment}"></td>
 					</tr>
 				</table>
 				<div>
-					<a th:href="@{/ContactForm}" class="btn btn-secondary btn-sm">戻る</a>
-					<input class="btn btn-secondary btn-sm" type="submit" value="登録">
+					<a th:href="@{/ContactForm}">戻る</a>
+					<input type="submit" value="登録">
 				</div>
 			</form>
 		</div>
