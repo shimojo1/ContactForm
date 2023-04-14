@@ -1,0 +1,1 @@
+ALTER TABLE form ADD COLUMN mail_address varchar(255) not null DEFAULT '' COMMENT 'メールアドレス' AFTER comment;

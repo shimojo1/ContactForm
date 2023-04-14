@@ -38,7 +38,7 @@ public class FormController {
 	}
 	
 	/*
-	 * 確認画面へ遷移
+	 * 確認画面
 	 */
 	@PostMapping(value = "/confirm")
 	public String confirm(@Valid @ModelAttribute Form form, BindingResult result, Model model, HttpSession session) {
@@ -56,7 +56,7 @@ public class FormController {
 	}
 	
 	/*
-	 * DB登録
+	 * 完了画面
 	 */
 	@RequestMapping(value = "/complete")
 	public String complete(HttpSession session) {
